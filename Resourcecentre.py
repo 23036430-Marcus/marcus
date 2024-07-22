@@ -69,10 +69,7 @@ class ResourceCenter:
                 # Refactor (B): Extract duplicate codes to selectItemType(),
                 # return the option selected.
                 # Advance refactoring: error chekcing in selectItemType().
-                print("\nItem types:")
-                print("1. Digital Camera")
-                print("2. Laptop")
-                option = int(input("Enter option to select item type >"))
+                option = self.selectItemType()
 
                 # TO-DO: Write the code to ADD a camcorder or chrome book.
                 if option == OPTION_CAMEREA:
@@ -108,17 +105,13 @@ class ResourceCenter:
                 # TO-DO: Write the code to display all digital camera or laptop.
                 print(self.inventory.getAvailableCamera())
                 print(self.inventory.getAvailableLaptop())
-
-                
+             
             elif choice == CHOICE_LOAN:
                 # Refactor (B): use printHeader(mesage)
                 self.printHeader("Loan an item")
     
                 # Refactor (B): use selectItemType()
-                print("\nItem types:")
-                print("1. Digital Camera")
-                print("2. Laptop")
-                option = int(input("Enter option to select item type >"))
+                option = self.selectItemType()
 
                 # TO-DO: Write the code to LOAN a digital camera or laptop
                 if option == OPTION_CAMEREA:
@@ -145,28 +138,18 @@ class ResourceCenter:
                         print("Error loaning laptop.")
                 else:
                     print("Invalid item type.")
-
-                
             elif choice == CHOICE_RETURN:
                 # Refactor (B): use printHeader(mesage)
                 self.printHeader("Return an item")
                 
                 # Refactor (B): use selectItemType()
-                print("\nItem types:")
-                print("1. Digital Camera")
-                print("2. Laptop")
-                option = int(input("Enter option to select item type >"))
+                option = self.selectItemType()
 
                 # TO-DO: Write the code to RETURN a digital camera or laptop
                 if option == OPTION_CAMEREA:
                     # Refactor (F): create and use proper method to display loaned camera.
                     # Don't forget to create a pytest for this new method.
-                    print("{:<10}{:<30}{:<10}{:<12}{:<10}".format("AssetTag", 
-                          "Description", "Available", "Due Date", "Zoom"))
-                    for i in self.inventory.cameraList:
-                        if i.getIsAvailable() == "No":
-                            print("{:<10}{:<30}{:<10}{:<12}{:<10}".format(i.getAssetTag(), \
-                            i.getDescription() , i.getIsAvailable(), i.getDueDate(), i.getOpticalZoom()))
+                    print(self.inventory.getAvailableCamera())
 
                     assetTag = input("Enter asset tag >")
 
@@ -179,14 +162,7 @@ class ResourceCenter:
                 elif option == OPTION_LAPTOP:
                     # Refactor (F): create and use proper method to display loaned Laptop.
                     # Don't forget to create a pytest for this new method.
-                    print("{:<10}{:<30}{:<10}{:<12}{:<10}".format("AssetTag", 
-                          "Description", "Available", "Due Date", "OS"))
-                    for i in self.inventory.laptopList:
-                        if i.getIsAvailable() == "No":
-                            print("{:<10}{:<30}{:<10}{:<12}{:<10}".format(i.getAssetTag(), \
-                            i.getDescription() , i.getIsAvailable(), i.getDueDate(), i.getOs() ))
-
-                    assetTag = input("Enter asset tag >")
+                    print(self.inventory.getNotAvailableLaptop())
 
                     result = self.inventory.returnLaptop(assetTag)
 
@@ -210,3 +186,4 @@ class ResourceCenter:
 if __name__ == "__main__":
     app = ResourceCenter()
     app.main()
+
